@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6',
             ]
         );
 
@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $token = $user->createToken('Laravel Password Grant Client')->plainTextToken;
 
         return response([
             'status' => 'success',
