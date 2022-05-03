@@ -31,5 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('/create-account',[AuthenticationController::class, 'createAccount']);
 Route::post('/login',[AuthenticationController::class, 'login']);
 Route::get('/projects', [ProjectsController::class, 'getProjects']);
-Route::get('/projects/:slug', [ProjectsController::class, 'getProject']);
-Route::get('/projects/:status', [ProjectsController::class, 'getProject']);
+Route::get('/project/{slug}', [ProjectsController::class, 'getProject']);
+Route::get('/projects/{status}', [ProjectsController::class, 'getProjectsByStatus']);

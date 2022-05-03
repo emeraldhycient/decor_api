@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $token = $user->createToken('Laravel Password Grant Client')->plainTextToken;
+        $token = $user->createToken($data['password'])->plainTextToken;
 
         return response([
             'status' => 'success',
@@ -65,7 +65,7 @@ class AuthenticationController extends Controller
             return response([
                 'status' => 'success',
                 'user' => $user,
-                'token' => $user->createToken('tokens')->plainTextToken
+                'token' => $user->createToken($data['password'])->plainTextToken
             ], 200);
     }
 

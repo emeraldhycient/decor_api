@@ -100,7 +100,7 @@ class ProjectsController extends Controller
     }
 
     public static function getProjectsByStatus($status){
-        if ($status == 'all') {
+        if ($status === 'all') {
             $projects = Projects::all();
             return response([
             'status' => 'success',
