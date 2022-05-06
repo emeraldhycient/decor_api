@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Projects;
@@ -18,43 +17,31 @@ class ProjectsController extends Controller
                     'slug' => 'required|string|unique:Projects|max:255',
                     'project_status' => 'required|string|max:255',
                     'project_date' => 'required|string|max:255',
-                    'images' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                    'images' => 'required',
                     'description' => 'required|string',
                 ]
             );
 
-            $images =[];
-            if($request->hasfile('images'))
-            {
-               foreach($request->file('images') as $file)
-               {
-                $imageName = rand().'.'.$file->extension();  
-                $file->move(public_path('images'), $imageName);
-                $images[] = $imageName;
-               }
-            }else{
-                return response([
-                    'message' => 'No file selected'
-                ], 401);
-            }
 
-            /*if($request->hasfile('filename'))
+
+            $insert = [];
+
+            if($request->hasfile('images'))
+         {
+            foreach($request->file('images') as $key => $file)
             {
-   
-               foreach($request->file('filename') as $image)
-               {
-                   $name=$image->getClientOriginalName();
-                   $image->move(public_path().'/images/', $name);  
-                   $images[] = $name;  
-               }
+                $path = $file->store('public/images');
+                $name = $file->getClientOriginalName();
+                $insert[$key]['title'] = $name;
+                $insert[$key]['path'] = $path;
             }
-   */
+         }
 
             $project = Projects::updateOrCreate([
                 'slug' => Str::slug($data['slug']),
                 'project_status' => $data['project_status'],
                 'project_date' => $data['project_date'],
-                'images' => json_encode($images),
+                'images' => $insert,
                 'description' => $data['description'],
             ]);
     

@@ -22,4 +22,14 @@ class Projects extends Model
         'description',
     ];
 
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'images' => 'array',
+    ];
+
+
 }
