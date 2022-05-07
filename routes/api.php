@@ -21,11 +21,10 @@ use App\Http\Controllers\sendEmailController;
 //@admin1980 ,administrator@mpdesign.com
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/profile', function(Request $request) {
-        return auth()->user();
-    });
+
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-    Route::post('/projects/create', [ProjectsController::class, 'createProject']);
+    Route::post('/projects/create', [ProjectsController::class, 'create']);
+    Route::post('/projects/update', [ProjectsController::class, 'update']);
     Route::post('/projects/delete/:slug', [ProjectsController::class, 'deleteProject']);
 });
 

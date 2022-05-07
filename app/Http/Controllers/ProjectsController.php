@@ -10,11 +10,11 @@ class ProjectsController extends Controller
 {
     //
 
-    public function createProject(Request $request){
+    public function create(Request $request){
             
             $data = $request->validate(
                 [
-                    'slug' => 'required|string|unique:Projects|max:255',
+                    'slug' => 'required|string|unique:projects|max:255',
                     'project_status' => 'required|string|max:255',
                     'project_date' => 'required|string|max:255',
                     'images' => 'required',
@@ -37,7 +37,7 @@ class ProjectsController extends Controller
             }
          }
 
-            $project = Projects::updateOrCreate([
+            $project = Projects::create([
                 'slug' => Str::slug($data['slug']),
                 'project_status' => $data['project_status'],
                 'project_date' => $data['project_date'],
@@ -51,6 +51,31 @@ class ProjectsController extends Controller
             ] , 200);
     }
 
+
+    public function update(Request $request){
+        $data = $request->validate(
+            [
+                'slug' => 'required|string|max:255',
+                'project_status' => 'required|string|max:255',
+                'project_date' => 'required|string|max:255',
+                'description' => 'required|string',
+            ]
+        );
+
+        $project = Projects::where('slug', $data['slug'])->first();
+
+        $project->project_status = $data['project_status'];
+        $project->project_date = $data['project_date'];
+        $project->description = $data['description'];
+
+        $project->save();
+
+        return response([
+            'status' => 'success',
+            'project' => $project
+        ] , 200);
+
+    }
 
     public function getProjects(){
             $projects = Projects::all();
