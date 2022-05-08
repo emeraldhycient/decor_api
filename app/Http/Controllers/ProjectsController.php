@@ -17,7 +17,6 @@ class ProjectsController extends Controller
                     'slug' => 'required|string|unique:projects|max:255',
                     'project_status' => 'required|string|max:255',
                     'project_date' => 'required|string|max:255',
-                    'images' => 'required',
                     'description' => 'required|string',
                 ]
             );
@@ -72,6 +71,7 @@ class ProjectsController extends Controller
 
         return response([
             'status' => 'success',
+            'message' => 'Projects updated successfully',
             'project' => $project
         ] , 200);
 
@@ -81,6 +81,7 @@ class ProjectsController extends Controller
             $projects = Projects::all();
             return response([
             'status' => 'success',
+             'message' => 'Projects retrieved successfully',
             'projects' => $projects
         ], 200);
        
@@ -98,6 +99,7 @@ class ProjectsController extends Controller
         
         return response([
             'status' => 'success',
+            'message' => 'Projects retrieved successfully',
             'project' => $project
         ] , 200);
     }
@@ -107,7 +109,7 @@ class ProjectsController extends Controller
         $project->delete();
         return response([
             'status' => 'success',
-            'project' => $project
+            'message' => 'Project deleted successfully'
         ] , 200);
     }
 

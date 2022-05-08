@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthenticationController::class, 'logout']);
     Route::post('/projects/create', [ProjectsController::class, 'create']);
     Route::post('/projects/update', [ProjectsController::class, 'update']);
-    Route::post('/projects/delete/:slug', [ProjectsController::class, 'deleteProject']);
+    Route::get('/projects/delete/{slug}', [ProjectsController::class, 'deleteProject']);
 });
 
 Route::post('/create-account',[AuthenticationController::class, 'createAccount']);
