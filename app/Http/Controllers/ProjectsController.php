@@ -31,7 +31,7 @@ class ProjectsController extends Controller
             {
                 $path = $file->store('public/images');
                 $name = $file->getClientOriginalName();
-                $insert[$key]['title'] = $name;
+                $insert[$key]['name'] = $name;
                 $insert[$key]['path'] = $path;
             }
          }

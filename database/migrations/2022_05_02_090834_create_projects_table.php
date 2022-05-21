@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();	
             $table->string('Project_status');	
             $table->string('Project_date');	
-            $table->string('images');	
+            $table->text('images');	
             $table->longText('description');
             $table->timestamps();
         });
