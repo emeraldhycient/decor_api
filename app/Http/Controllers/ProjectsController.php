@@ -29,7 +29,7 @@ class ProjectsController extends Controller
          {
             foreach($request->file('images') as $key => $file)
             {
-                $path = $file->store('public/images');
+                $path = $file->store('images');
                 $name = $file->getClientOriginalName();
                 $insert[$key]['name'] = $name;
                 $insert[$key]['path'] = $path;
