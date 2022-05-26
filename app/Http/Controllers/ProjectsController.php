@@ -29,10 +29,13 @@ class ProjectsController extends Controller
          {
             foreach($request->file('images') as $key => $file)
             {
-                $path = $file->store('public/images');
+                $name = time().$key.Str::random(5).'.'.$file->getClientOriginalExtension();
+                $file->move(public_path('images'), $name);
+                $insert[$key]['path'] = $name;
+                /*$path = $file->store('public/images');
                 $name = $file->getClientOriginalName();
                 $insert[$key]['name'] = $name;
-                $insert[$key]['path'] = $path;
+                $insert[$key]['path'] = $path; */
             }
          }
 
